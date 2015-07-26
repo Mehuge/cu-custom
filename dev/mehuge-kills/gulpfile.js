@@ -1,12 +1,12 @@
 'use strict';
-const gulp = require('gulp');
-const del = require('del');
-const util = require('gulp-util');
-const format = require('string-template');
-const config = require('./build-config.js');
+var gulp = require('gulp');
+var del = require('del');
+var util = require('gulp-util');
+var format = require('string-template');
+var config = require('./build-config.js');
 
-const destDir = './dest/' + config.ui.name;
-const sourceDir = './src';
+var destDir = './dest/' + config.ui.name;
+var sourceDir = './src';
 
 function clean(cb) {
   del(['./dest'], cb);
@@ -18,7 +18,7 @@ function copy() {
 }
 
 function stringToFile(filename, string) {
-  let src = require('stream').Readable({ objectMode: true });
+  var src = require('stream').Readable({ objectMode: true });
   src._read = function () {
     this.push(new util.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }));
     this.push(null);
@@ -27,7 +27,7 @@ function stringToFile(filename, string) {
 }
 
 function buildUIString(ui) {
-  let uiString = format('{\n\t\"name\": \"{name}\",\n', ui) +
+  var uiString = format('{\n\t\"name\": \"{name}\",\n', ui) +
     format('\t\"mainFile\": \"{name}/{entryPoint}\",\n', ui);
 
   if (ui.rect) {
@@ -63,7 +63,7 @@ function buildUIString(ui) {
 // TODO: create an npm module here for compiling these .ui files so it doesn't
 // have to be maintained in gulpfiles
 function writeUI() {
-  const uiString = buildUIString(config.ui);
+  var uiString = buildUIString(config.ui);
   return stringToFile(format('{name}.ui', config.ui), uiString)
     .pipe(gulp.dest('./dest/'));
 }

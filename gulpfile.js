@@ -2,12 +2,12 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict';
-const gulp = require('gulp');
-const del = require('del');
-const chug = require('gulp-chug');
-const flatten = require('gulp-flatten');
+var gulp = require('gulp');
+var del = require('del');
+var chug = require('gulp-chug');
+var flatten = require('gulp-flatten');
 
-const deployDir = './deploy';
+var deployDir = './deploy';
 
 function clean(cb) {
   del(deployDir, cb);
