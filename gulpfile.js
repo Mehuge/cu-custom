@@ -24,37 +24,6 @@ var gulp = require('gulp'),
   livereload = require('gulp-livereload'),
   stylus = require('gulp-stylus');
 
-function buildJS(watch) {
-  var bundler, compile;
-  bundler = browserify('src/mehuge-kills/main.js', watchify.args);
-
-  if (watch) {
-    bundler = watchify(bundler);
-  }
-
-  bundler.transform(babelify.configure({
-    optional: ['es7.asyncFunctions','es7.decorators']
-  }));
-  bundler.transform(reactify);
-
-  compile = function() {
-    return bundler.bundle()
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .on('prebundle', function(bund) {
-        // Make React available externally for dev tools
-        bund.require('react');
-      })
-      .pipe(source('main.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(sourcemaps.write(''))
-      .pipe(gulp.dest('./dist/mehuge-kills')).pipe(livereload());
-  }
-
-  bundler.on('update', compile);
-  return compile();
-}
-
 function buildStyles(watch) {
   var compile = function() {
     return gulp.src('src/**/**.styl')
@@ -75,7 +44,6 @@ function copyCSS() {
 }
 
 gulp.task('clean', function (cb) { del(['dist'], cb); });
-gulp.task('js', [ 'clean' ], buildJS);
 gulp.task('style', [ 'clean' ], buildStyles);
 gulp.task('css', [ 'clean'], copyCSS);
 
@@ -84,7 +52,51 @@ gulp.task('images', ['clean'], function() {
           .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', [ 'style', 'css', 'js', 'images', 'clean' ], function() {
+var UIs = [ "mehuge-kills" ];
+var uiTasks = [];
+for (var i = 0; i < UIs.length; i++) {
+  
+  (function(UI) {
+    
+    function buildJS(watch) {
+      var bundler, compile;
+      bundler = browserify('src/'+UI+'/main.js', watchify.args);
+    
+      if (watch) {
+        bundler = watchify(bundler);
+      }
+    
+      bundler.transform(babelify.configure({
+        optional: ['es7.asyncFunctions','es7.decorators']
+      }));
+      bundler.transform(reactify);
+    
+      compile = function() {
+        return bundler.bundle()
+          .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+          .on('prebundle', function(bund) {
+            // Make React available externally for dev tools
+            bund.require('react');
+          })
+          .pipe(source('main.js'))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({loadMaps: true}))
+          .pipe(sourcemaps.write(''))
+          .pipe(gulp.dest('./dist/'+UI)).pipe(livereload());
+      }
+    
+      bundler.on('update', compile);
+      return compile();
+    }
+
+    gulp.task('js-'+UI, [ 'clean' ], buildJS);
+    uiTasks.push('js-'+UI);
+
+  })(UIs[i]);  
+}
+
+
+gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'clean' ]), function() {
   return gulp.src('src/**/index.html')
     .pipe(gulp.dest('./dist'));
 });
