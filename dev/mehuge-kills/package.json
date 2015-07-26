@@ -1,0 +1,17 @@
+{
+  "name": "mehuge-kills",
+  "version": "0.1.0",
+  "description": "Kills UI",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mehuge",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.6",
+    "string-template": "^0.2.1"
+  }
+}
