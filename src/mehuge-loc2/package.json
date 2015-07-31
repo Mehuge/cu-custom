@@ -1,0 +1,8 @@
+{
+	"name": "mehuge-loc2",
+	"version": "0.1",
+	"main": "main.js",
+	"index": "index.html",
+	"dependencies": { },
+	"devDependencies": { }
+}

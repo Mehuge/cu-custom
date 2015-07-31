@@ -1,0 +1,31 @@
+body {
+    overflow: hidden;
+    cursor: pointer;
+    height: 100%; width: 100%;
+    margin: 0; 
+}
+
+div#loc { 
+    position: absolute; bottom: 1px; right: 2px;
+    text-align: right;
+    color: white; 
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0.5px 0.866px 1px rgba(0, 0, 0, 0.392);
+    background-color: rgba(0,0,0,0.1);
+}
+.invis { 
+    opacity: 0.01; 
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
