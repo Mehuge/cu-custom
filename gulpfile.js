@@ -48,11 +48,11 @@ gulp.task('style', [ 'clean' ], buildStyles);
 gulp.task('css', [ 'clean'], copyCSS);
 
 gulp.task('images', ['clean'], function() {
-  return gulp.src('src/**/images/*')
+  return gulp.src('src/**/images/**')
           .pipe(gulp.dest('./dist'));
 });
 
-var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc2" ];
+var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc2", "character" ];
 var uiTasks = [];
 for (var i = 0; i < UIs.length; i++) {
   
@@ -95,6 +95,7 @@ for (var i = 0; i < UIs.length; i++) {
   })(UIs[i]);  
 }
 
+// gulp.task('lib',  [ 'clean' ], function() { return gulp.src('src/lib/*.js').pipe(gulp.dest('./dist/lib')); });
 
 gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'clean' ]), function() {
   return gulp.src('src/**/index.html')
