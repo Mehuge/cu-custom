@@ -9,6 +9,7 @@
 var gulp = require('gulp'),
   watcher = require('gulp-watch'),
   connect = require('gulp-connect'),
+  rename = require('gulp-rename'),
   del = require('del'),
   gutil = require('gulp-util'),
   notify = require('gulp-notify'),
@@ -96,10 +97,21 @@ for (var i = 0; i < UIs.length; i++) {
 }
 
 // gulp.task('lib',  [ 'clean' ], function() { return gulp.src('src/lib/*.js').pipe(gulp.dest('./dist/lib')); });
+gulp.task('ui', [ 'clean' ], function() {
+  return gulp.src('src/**/*.ui')
+      .pipe(rename(function(path) {
+          path.dirname = '';
+      }))
+      .pipe(gulp.dest('./dist'));
+});
 
-gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'clean' ]), function() {
-  return gulp.src('src/**/index.html')
-    .pipe(gulp.dest('./dist'));
+gulp.task('html',  [ 'clean' ], function() { 
+  return gulp.src('src/**/*.html')
+      .pipe(gulp.dest('./dist')); 
+});
+
+gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'html', 'ui', 'clean' ]), function() {
+  console.log('done');
 });
 
 // Runs web server
