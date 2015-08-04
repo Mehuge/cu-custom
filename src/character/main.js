@@ -108,8 +108,11 @@
 		}
 	});
 
-	React.render(
-		<Character/>, 
-		document.getElementById("character")
-	);
+	cuAPI.OnInitialized(function(){
+		React.render(
+			<Character/>, 
+			document.getElementById("character")
+		);
+	});
+
 })();
