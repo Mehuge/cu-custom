@@ -40,5 +40,4 @@
 	  <Location pollInterval={200}/>,
 	  document.getElementById("loc")
 	);
-
 })();

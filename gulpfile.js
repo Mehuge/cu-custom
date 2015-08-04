@@ -53,7 +53,7 @@ gulp.task('images', ['clean'], function() {
           .pipe(gulp.dest('./dist'));
 });
 
-var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc2", "character" ];
+var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc", "character" ];
 var uiTasks = [];
 for (var i = 0; i < UIs.length; i++) {
   
