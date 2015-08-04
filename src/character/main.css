@@ -30,7 +30,7 @@ html, body {
     left: 2px;
     width: 59px;
     height: 59px;
-    background: transparent no-repeat top left;
+    background: transparent url() no-repeat top left;
 }
 
 #name {

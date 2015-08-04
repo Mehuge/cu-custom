@@ -9,8 +9,9 @@
 			return (
 				<div id="portrait" 
 				style={{ 
-					backgroundImage: this.props.race 
-						? 'url(images/portraits/' + this.props.race.toLowerCase() + '.jpg' : ''
+					background: this.props.race 
+						? 'transparent url(images/portraits/' + this.props.race + '.jpg) no-repeat top left'
+						: ''
 			 	}}></div>
 			 );
 		}
@@ -30,7 +31,7 @@
 
 	var HealthText = React.createClass({
 		render: function() {
-			return (<div id="health-text">{this.props.health}/{this.props.maxHealth}</div>);
+			return (<div id="health-text">{this.props.health} / {this.props.maxHealth}</div>);
 		}
 	});
 
@@ -42,7 +43,7 @@
 
 	var StaminaText = React.createClass({
 		render: function() {
-			return (<div id="stamina-text">{this.props.stamina}/{this.props.maxStamina}</div>);
+			return (<div id="stamina-text">{this.props.stamina} / {this.props.maxStamina}</div>);
 		}
 	});
 
@@ -68,7 +69,7 @@
 			var self = this;
 			// monitor character events (handlesCharacter:true)
 			cuAPI.OnCharacterRaceChanged(function(race) {
-				self.setState({ race: Race[race] });
+				self.setState({ race: Race[race].toLowerCase() });
 			});
 			cuAPI.OnCharacterNameChanged(function(name) {
 				self.setState({ name: name });
