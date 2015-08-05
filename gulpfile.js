@@ -40,65 +40,18 @@ function buildStyles(watch) {
   return compile();
 }
 
-function copyCSS() {
-  return gulp.src('src/**/**.css').pipe(gulp.dest('./dist'));
-}
-
 gulp.task('clean', function (cb) { del(['dist'], cb); });
 gulp.task('style', [ 'clean' ], buildStyles);
-gulp.task('css', [ 'clean'], copyCSS);
 
-gulp.task('images', ['clean'], function() {
-  return gulp.src('src/**/images/**')
-          .pipe(gulp.dest('./dist'));
+gulp.task('css', [ 'clean'], function () {
+  return gulp.src('src/**/*.css')
+      .pipe(watcher('src/**/*.css'))
+      .pipe(gulp.dest('./dist'));
 });
 
-var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc", "character" ];
-var uiTasks = [];
-for (var i = 0; i < UIs.length; i++) {
-  
-  (function(UI) {
-    
-    function buildJS(watch) {
-      var bundler, compile;
-      bundler = browserify('src/'+UI+'/main.js', watchify.args);
-    
-      if (watch) {
-        bundler = watchify(bundler);
-      }
-    
-      bundler.transform(babelify.configure({
-        optional: ['es7.asyncFunctions','es7.decorators']
-      }));
-      bundler.transform(reactify);
-    
-      compile = function() {
-        return bundler.bundle()
-          .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-          .on('prebundle', function(bund) {
-            // Make React available externally for dev tools
-            bund.require('react');
-          })
-          .pipe(source('main.js'))
-          .pipe(buffer())
-          .pipe(sourcemaps.init({loadMaps: true}))
-          .pipe(sourcemaps.write(''))
-          .pipe(gulp.dest('./dist/'+UI)).pipe(livereload());
-      }
-    
-      bundler.on('update', compile);
-      return compile();
-    }
-
-    gulp.task('js-'+UI, [ 'clean' ], buildJS);
-    uiTasks.push('js-'+UI);
-
-  })(UIs[i]);  
-}
-
-// gulp.task('lib',  [ 'clean' ], function() { return gulp.src('src/lib/*.js').pipe(gulp.dest('./dist/lib')); });
 gulp.task('ui', [ 'clean' ], function() {
   return gulp.src('src/**/*.ui')
+      .pipe(watcher('src/**/*.ui'))
       .pipe(rename(function(path) {
           path.dirname = '';
       }))
@@ -107,8 +60,54 @@ gulp.task('ui', [ 'clean' ], function() {
 
 gulp.task('html',  [ 'clean' ], function() { 
   return gulp.src('src/**/*.html')
+      .pipe(watcher('src/**/*.html'))
       .pipe(gulp.dest('./dist')); 
 });
+
+gulp.task('images', ['clean'], function() {
+  return gulp.src('src/**/images/**')
+          .pipe(watcher('src/**/images/**'))
+          .pipe(gulp.dest('./dist'));
+});
+
+var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc", "character" ];
+var uiTasks = [];
+for (var i = 0; i < UIs.length; i++) {
+  (function(UI) {
+    function buildJS(watch) {
+      var bundler, compile;
+      bundler = browserify({ entries: [ 'src/'+UI+'/main.js' ] }, watchify.args);
+
+      if (watch) {
+        bundler = watchify(bundler);
+      }
+
+      bundler.transform(babelify.configure({
+        optional: ['es7.asyncFunctions','es7.decorators']
+      }));
+      bundler.transform(reactify);
+
+      compile = function() {
+        return bundler.bundle()
+          .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+          .on('prebundle', function(bund) {
+            // Make React available externally for dev tools
+            bund.require('react');
+          })
+          .pipe(source('main.js'))
+          // .pipe(buffer())
+          // .pipe(sourcemaps.init({loadMaps: true}))
+          // .pipe(sourcemaps.write())
+          .pipe(gulp.dest('./dist/'+UI)).pipe(livereload());
+      }
+
+      bundler.on('update', compile);
+      return compile();
+    }
+    gulp.task('js-'+UI, [ 'clean' ], buildJS);
+    uiTasks.push('js-'+UI);
+  })(UIs[i]);  
+}
 
 gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'html', 'ui', 'clean' ]), function() {
   console.log('done');
