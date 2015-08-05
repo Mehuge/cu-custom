@@ -21,6 +21,7 @@
     "gulp-livereload": "^3.8.0",
     "gulp-notify": "^2.2.0",
     "gulp-react": "^3.0.1",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-stylus": "^2.0.3",
     "gulp-util": "^3.0.5",
