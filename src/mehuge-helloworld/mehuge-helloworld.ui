@@ -1,0 +1,10 @@
+{
+    "name": "mehuge-helloworld",
+    "mainFile": "mehuge-helloworld/index.html",
+    "rect": {
+        "left": 100,
+        "top": 100,
+        "right": 245,
+        "bottom": 225
+    }
+}
