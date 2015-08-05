@@ -89,7 +89,7 @@
 			this.setState({
 				healthWidth: document.getElementById("health-text").offsetWidth,
 				staminaWidth: document.getElementById("stamina-text").offsetWidth
-			})
+			});
 		},
 		render: function() {
 			var healthWidth = this.state.maxHealth ? (this.state.health / this.state.maxHealth) * this.state.healthWidth : 0;
