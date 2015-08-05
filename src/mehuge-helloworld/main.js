@@ -1,5 +1,8 @@
 var React = require('react');
-React.render(
-    <h1>Hello, world!</h1>,
-    document.getElementById('main')
-);
+window["startApp"] = function() {
+	React.render(
+	    <h1>Hello, world!</h1>,
+	    document.body
+	);
+}
+window.startApp();
