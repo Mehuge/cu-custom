@@ -39,5 +39,7 @@
     "watchify": "^3.2.1",
     "cu": "codecorsair/cu-lib"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "cu-ui-build-tools": "git+https://github.com/saddieeiddas/cu-ui-build-tools.git#master"
+  }
 }
