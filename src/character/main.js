@@ -67,7 +67,6 @@
 				maxHealth: 0,
 				stamina: 0,
 				maxStamina: 0,
-				width: 154,
 				race: null
 			}
 		},
@@ -113,8 +112,6 @@
 			);
 		}
 	});
-
-	alert('open dbeugger');
 
 	cuAPI.OnInitialized(function(){
 		React.render(
