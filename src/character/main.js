@@ -6,14 +6,10 @@
 
 	var Portrait = React.createClass({
 		render: function() {
-			return (
-				<div id="portrait"
-				style={{
-					background: this.props.race
-						? 'transparent url(images/portraits/' + this.props.race + '.jpg) no-repeat top left'
-						: ''
-			 	}}></div>
-			 );
+			var  bg = this.props.race ?
+					'transparent url(images/portraits/' + this.props.race + '.jpg) no-repeat top left'
+					: '';
+			return (<div id="portrait" style={{ background: bg }}></div>);
 		}
 	});
 
@@ -72,13 +68,13 @@
 			return (
 				<div>
 					<Portrait race={this.props.race}/>
-	        <Name name={this.props.name}/>
-	        <HealthBar width={healthWidth} />
-	        <HealthText ref="healthText" health={this.props.health} maxHealth={this.props.maxHealth} />
-	        <StaminaBar width={staminaWidth} />
-	        <StaminaText ref="staminaText" stamina={this.props.stamina} maxStamina={this.props.maxStamina} />
-	        <Effects/>
-	      </div>
+			        <Name name={this.props.name}/>
+			        <HealthBar width={healthWidth} />
+			        <HealthText ref="healthText" health={this.props.health} maxHealth={this.props.maxHealth} />
+			        <StaminaBar width={staminaWidth} />
+			        <StaminaText ref="staminaText" stamina={this.props.stamina} maxStamina={this.props.maxStamina} />
+			        <Effects/>
+			    </div>
 			);
 		}
 	});
