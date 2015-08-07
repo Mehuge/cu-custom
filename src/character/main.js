@@ -30,9 +30,6 @@
 	});
 
 	var HealthText = React.createClass({
-		getWidth: function() {
-			return React.findDOMNode(this.refs.text).offsetWidth;
-		},
 		render: function() {
 			return (<div ref="text" id="health-text">{this.props.health} / {this.props.maxHealth}</div>);
 		}
@@ -45,9 +42,6 @@
 	});
 
 	var StaminaText = React.createClass({
-		getWidth: function() {
-			return React.findDOMNode(this.refs.text).offsetWidth;
-		},
 		render: function() {
 			return (<div ref="text" id="stamina-text">{this.props.stamina} / {this.props.maxStamina}</div>);
 		}
@@ -60,6 +54,36 @@
 	});
 
 	var Character = React.createClass({
+		getInitialState: function() {
+			return {
+				healthWidth: 0,
+				staminaWidth: 0,
+			}
+		},
+		componentDidMount: function() {
+			this.setState({
+				healthWidth: this.refs.healthText.getDOMNode().offsetWidth,
+				staminaWidth: this.refs.staminaText.getDOMNode().offsetWidth
+			});
+		},
+		render: function() {
+			var healthWidth = this.props.maxHealth ? (this.props.health / this.props.maxHealth) * this.state.healthWidth : 0;
+			var staminaWidth = this.props.maxStamina ? (this.props.stamina / this.props.maxStamina) * this.state.staminaWidth : 0;
+			return (
+				<div>
+					<Portrait race={this.props.race}/>
+	        <Name name={this.props.name}/>
+	        <HealthBar width={healthWidth} />
+	        <HealthText ref="healthText" health={this.props.health} maxHealth={this.props.maxHealth} />
+	        <StaminaBar width={staminaWidth} />
+	        <StaminaText ref="staminaText" stamina={this.props.stamina} maxStamina={this.props.maxStamina} />
+	        <Effects/>
+	      </div>
+			);
+		}
+	});
+
+	var CharacterContainer = React.createClass({
 		getInitialState: function() {
 			return {
 				name: "",
@@ -91,31 +115,20 @@
 					maxHealth: maxHealth
 				});
 			});
-			this.setState({
-				healthWidth: this.refs.healthText.getWidth(),
-				staminaWidth: this.refs.staminaText.getWidth()
-			});
 		},
 		render: function() {
-			var healthWidth = this.state.maxHealth ? (this.state.health / this.state.maxHealth) * this.state.healthWidth : 0;
-			var staminaWidth = this.state.maxStamina ? (this.state.stamina / this.state.maxStamina) * this.state.staminaWidth : 0;
-			return (
-				<div>
-				<Portrait race={this.state.race}/>
-	        	<Name name={this.state.name}/>
-	        	<HealthBar width={healthWidth} />
-	        	<HealthText ref="healthText" health={this.state.health} maxHealth={this.state.maxHealth} />
-	        	<StaminaBar width={staminaWidth} />
-	        	<StaminaText ref="staminaText" stamina={this.state.stamina} maxStamina={this.state.maxStamina} />
-	        	<Effects/>
-	        	</div>
-			);
+			var state = this.state;
+			return (<Character
+					name={state.name} race={state.race}
+					health={state.health} maxHealth={state.maxHealth}
+					stamina={state.stamina} maxStamina={state.maxStamina}
+			/>);
 		}
 	});
 
 	cuAPI.OnInitialized(function(){
 		React.render(
-			<Character/>,
+			<CharacterContainer/>,
 			document.getElementById("character")
 		);
 	});
