@@ -7,9 +7,9 @@
 	var Portrait = React.createClass({
 		render: function() {
 			return (
-				<div id="portrait" 
-				style={{ 
-					background: this.props.race 
+				<div id="portrait"
+				style={{
+					background: this.props.race
 						? 'transparent url(images/portraits/' + this.props.race + '.jpg) no-repeat top left'
 						: ''
 			 	}}></div>
@@ -25,25 +25,31 @@
 
 	var HealthBar = React.createClass({
 		render: function() {
-			return (<div id="health-bar" style={{ width: this.props.width+'px' }}></div>);
+			return (<div id="health-bar" style={{ width: this.props.width }}></div>);
 		}
 	});
 
 	var HealthText = React.createClass({
+		getWidth: function() {
+			return React.findDOMNode(this.refs.text).offsetWidth;
+		},
 		render: function() {
-			return (<div id="health-text">{this.props.health} / {this.props.maxHealth}</div>);
+			return (<div ref="text" id="health-text">{this.props.health} / {this.props.maxHealth}</div>);
 		}
 	});
 
 	var StaminaBar = React.createClass({
 		render: function() {
-			return (<div id="stamina-bar" style={{ width: this.props.width+'px' }}></div>);
+			return (<div id="stamina-bar" style={{ width: this.props.width }}></div>);
 		}
 	});
 
 	var StaminaText = React.createClass({
+		getWidth: function() {
+			return React.findDOMNode(this.refs.text).offsetWidth;
+		},
 		render: function() {
-			return (<div id="stamina-text">{this.props.stamina} / {this.props.maxStamina}</div>);
+			return (<div ref="text" id="stamina-text">{this.props.stamina} / {this.props.maxStamina}</div>);
 		}
 	});
 
@@ -57,7 +63,7 @@
 		getInitialState: function() {
 			return {
 				name: "",
-				health: 0, 
+				health: 0,
 				maxHealth: 0,
 				stamina: 0,
 				maxStamina: 0,
@@ -87,8 +93,8 @@
 				});
 			});
 			this.setState({
-				healthWidth: document.getElementById("health-text").offsetWidth,
-				staminaWidth: document.getElementById("stamina-text").offsetWidth
+				healthWidth: this.refs.healthText.getWidth(),
+				staminaWidth: this.refs.staminaText.getWidth()
 			});
 		},
 		render: function() {
@@ -99,18 +105,20 @@
 				<Portrait race={this.state.race}/>
 	        	<Name name={this.state.name}/>
 	        	<HealthBar width={healthWidth} />
-	        	<HealthText health={this.state.health} maxHealth={this.state.maxHealth} />
+	        	<HealthText ref="healthText" health={this.state.health} maxHealth={this.state.maxHealth} />
 	        	<StaminaBar width={staminaWidth} />
-	        	<StaminaText stamina={this.state.stamina} maxStamina={this.state.maxStamina} />
+	        	<StaminaText ref="staminaText" stamina={this.state.stamina} maxStamina={this.state.maxStamina} />
 	        	<Effects/>
 	        	</div>
 			);
 		}
 	});
 
+	alert('open dbeugger');
+
 	cuAPI.OnInitialized(function(){
 		React.render(
-			<Character/>, 
+			<Character/>,
 			document.getElementById("character")
 		);
 	});
