@@ -1,5 +1,5 @@
 // Gives us the REAL or a FAKE API if the real one does not exist.
-var cuAPI = require("../lib/fake-API.js");
+var cuAPI = require("./fake-API.js");
 
 // Event Handlers
 var handlers = {};
