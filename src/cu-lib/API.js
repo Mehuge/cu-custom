@@ -25,8 +25,10 @@ var listeners = {
             // Character Name
             cuAPI.OnCharacterNameChanged(function(name) {
                 // design? store properties directly in the object or in a
-                // member hash?  Exposing HandlesCharacter interface to the
-                // callback or just the data?
+                // member hash?  Exposing "character" listener interface to the
+                // callback or just the data?  The listener could provide extra
+                // functionality to the handler through its interface. Can't
+                // think of a use-case off hand though.
                 character.name = name;
                 console.log('character name ' + name);
                 handler.fire(character);
