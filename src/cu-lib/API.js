@@ -104,7 +104,7 @@ function Handler() {
 
 // Public cu-lib/API interface
 module.exports = {
-    native: window.cuAPI,
+    native: cuAPI,
 
     on: function(handles, callback) {
         var id;
@@ -118,7 +118,7 @@ module.exports = {
         return id;
     },
 
-    ignore: function(handles, id) {
+    off: function(handles, id) {
         var handler = handlers[handles];
         if (handler) {
             handler.remove(id);
@@ -133,3 +133,6 @@ module.exports = {
         }
     }
 };
+
+module.exports.addListener = module.exports.on;
+module.exports.removeListener = module.exports.off;
