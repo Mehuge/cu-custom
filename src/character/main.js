@@ -2,7 +2,7 @@
 
 	var React = require("react");
 	var Race = require("../lib/cu-race.js");
-	var cuAPI = require("../lib/cuAPI.js");
+	var cuAPI = require("../cu-lib/API.js");
 
 	var Portrait = React.createClass({
 		render: function() {
@@ -93,24 +93,17 @@
 		componentDidMount: function() {
 			var self = this;
 			// monitor character events (handlesCharacter:true)
-			cuAPI.OnCharacterRaceChanged(function(race) {
-				self.setState({ race: Race[race].toLowerCase() });
-			});
-			cuAPI.OnCharacterNameChanged(function(name) {
-				self.setState({ name: name });
-			});
-			cuAPI.OnCharacterStaminaChanged(function(stamina, maxStamina) {
+			cuAPI.on("character", function(character) {
+				console.log('cuAPI on character ' + (typeof character));
 				self.setState({
-					stamina: stamina,
-					maxStamina: maxStamina
+					race: Race[character.race].toLowerCase(),
+					name: character.name,
+					stamina: character.stamina,
+					maxStamina: character.maxStamina,
+					health: character.health,
+					maxHealth: character.maxHealth
 				});
-			});
-			cuAPI.OnCharacterHealthChanged(function(health, maxHealth) {
-				self.setState({
-					health: health,
-					maxHealth: maxHealth
-				});
-			});
+			})
 		},
 		render: function() {
 			var state = this.state;
@@ -122,7 +115,8 @@
 		}
 	});
 
-	cuAPI.OnInitialized(function(){
+	cuAPI.on("init", function(){
+		cuAPI.OpenUI("mehuge-chat.ui");
 		React.render(
 			<CharacterContainer/>,
 			document.getElementById("character")
