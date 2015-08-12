@@ -1,5 +1,8 @@
 // Gives us the REAL or a FAKE API if the real one does not exist.
 var cuAPI = require("./fake-API.js");
+var Reflux = require("reflux");
+var InitListener = require('./listeners/init.js');
+var CharacterListener = require('./listeners/character.js');
 
 // Event Handlers
 var handlers = {};
@@ -7,60 +10,8 @@ var handlers = {};
 // Listeners, these are the objects that will actually monitor the cuAPI events
 // for a particular topic, e.g. "character" for handlesCharacter events.
 var listeners = {
-
-    "init": {
-        listen: function() {
-            var init = this, handler = handlers["init"];
-            cuAPI.OnInitialized(function(){
-                handler.fire();
-            });
-            this.listening = true;
-        }
-    },
-
-    "character": {
-         listen: function() {
-            var character = this, handler = handlers["character"];
-
-            // Character Name
-            cuAPI.OnCharacterNameChanged(function(name) {
-                // design? store properties directly in the object or in a
-                // member hash?  Exposing "character" listener interface to the
-                // callback or just the data?  The listener could provide extra
-                // functionality to the handler through its interface. Can't
-                // think of a use-case off hand though.
-                character.name = name;
-                console.log('character name ' + name);
-                handler.fire(character);
-            });
-
-            // Character Race
-            cuAPI.OnCharacterRaceChanged(function(race) {
-                character.race = race;
-                console.log('character race ' + race);
-                handler.fire(character);
-            });
-
-            // Character Stamina
-            cuAPI.OnCharacterStaminaChanged(function(stamina, maxStamina) {
-                character.stamina = stamina;
-                character.maxStamina = maxStamina;
-                console.log('character stamina ' + stamina + "/" + maxStamina);
-                handler.fire(character);
-            });
-
-            // Character Health
-            cuAPI.OnCharacterHealthChanged(function(health, maxHealth) {
-                character.health = health;
-                character.maxHealth = maxHealth;
-                console.log('character health ' + health + "/" + maxHealth);
-                handler.fire(character);
-            });
-
-            // We are now listening
-            this.listening = true;
-        }
-    }
+    "init": new InitListener(handlers),
+    "character": new CharacterListener(handlers)
 };
 
 // Event handler class
@@ -106,13 +57,15 @@ function Handler() {
 module.exports = {
     native: cuAPI,
 
+    HandlesCharacter: Reflux.createActions([ 'start' ]),
+
     on: function(handles, callback) {
         var id;
         var listener = listeners[handles];
         if (listener) {
             id = (handlers[handles] = handlers[handles] || new Handler()).add(callback);
             if (!listener.listening) {
-                listener.listen();
+                listener.start();
             }
         }
         return id;

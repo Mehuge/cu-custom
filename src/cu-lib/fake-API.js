@@ -4,7 +4,7 @@
 /// <reference path="../vendor/jquery.d.ts" />
 var CUFakeGameAPI = (function () {
     var XmppMessageType = XmppMessageType || {
-        NORMAL: -1, ERROR: 0, CHAT: 1, 
+        NORMAL: -1, ERROR: 0, CHAT: 1,
         GROUPCHAT: 2, HEADLINE: 3
     };
     function CUFakeGameAPI() {
@@ -171,7 +171,7 @@ var CUFakeGameAPI = (function () {
         }
         function _tick() {
             var tick = Date.now();
-            // emulation tick, here we will simulate the live environment (as much as we can) in the UI.  
+            // emulation tick, here we will simulate the live environment (as much as we can) in the UI.
             // We will adjust HP, targets etc.
             _playerTick(tick, "Character", cuAPI._character);
             _playerTick(tick, "Target", cuAPI._target);
@@ -380,7 +380,7 @@ var CUFakeGameAPI = (function () {
         var id = "OnCharacterRaceChanged";
         this._ev(id, c);
         if (this._character.race !== undefined) {
-            this._evf(id, [this._character.name]);
+            this._evf(id, [this._character.race]);
         }
     };
     /**

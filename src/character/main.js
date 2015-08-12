@@ -1,14 +1,16 @@
 (function(){
 
 	var React = require("react");
-	var Race = require("../lib/cu-race.js");
+	var Reflux = require("reflux");
 	var cuAPI = require("../cu-lib/API.js");
+	var CharacterStore = require("../cu-lib/stores/character.js");
 
 	var Portrait = React.createClass({
 		render: function() {
 			var  bg = this.props.race ?
 					'transparent url(images/portraits/' + this.props.race + '.jpg) no-repeat top left'
 					: '';
+			console.log(bg);
 			return (<div id="portrait" style={{ background: bg }}></div>);
 		}
 	});
@@ -80,38 +82,28 @@
 	});
 
 	var CharacterContainer = React.createClass({
+		mixins: [
+			Reflux.connect(CharacterStore, 'character')
+		],
 		getInitialState: function() {
 			return {
-				name: "",
-				health: 0,
-				maxHealth: 0,
-				stamina: 0,
-				maxStamina: 0,
-				race: null
+				character: {
+					name: "", race: "",
+					health: 0, maxHealth: 100,
+					stamina: 0, maxStamina: 100
+				}
 			}
 		},
 		componentDidMount: function() {
-			var self = this;
-			// monitor character events (handlesCharacter:true)
-			cuAPI.on("character", function(character) {
-				console.log('cuAPI on character ' + (typeof character));
-				self.setState({
-					race: Race[character.race].toLowerCase(),
-					name: character.name,
-					stamina: character.stamina,
-					maxStamina: character.maxStamina,
-					health: character.health,
-					maxHealth: character.maxHealth
-				});
-			})
+			cuAPI.HandlesCharacter.start();
 		},
 		render: function() {
-			var state = this.state;
+			var state = this.state, character = state.character;
 			return (<Character
-					name={state.name} race={state.race}
-					health={state.health} maxHealth={state.maxHealth}
-					stamina={state.stamina} maxStamina={state.maxStamina}
-			/>);
+					name={character.name} race={character.race}
+					health={character.health} maxHealth={character.maxHealth}
+					stamina={character.stamina} maxStamina={character.maxStamina} />
+				);
 		}
 	});
 
