@@ -1,5 +1,5 @@
 // Gives us the REAL or a FAKE API if the real one does not exist.
-import API from './fake-API.js';
+import cuAPI from './fake-API.js';
 
 // Event Handlers
 var handlers = {};
@@ -122,7 +122,7 @@ function off(handles, id) {
 }
 
 // Public cu-lib/API interface
-export class cuAPI {
+class API {
 
     constructor() {
         this.native = cuAPI;
@@ -138,3 +138,5 @@ export class cuAPI {
         }
     }
 };
+
+export default API;
