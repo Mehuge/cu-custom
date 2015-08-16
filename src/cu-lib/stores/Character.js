@@ -2,7 +2,7 @@ var Reflux = require('reflux');
 var cuAPI = require('../API.js');
 var Race = require('../enums/Race.js');
 
-module.exports = Reflux.createStore({
+var CharacterStore = Reflux.createStore({
    listenables: [ cuAPI.HandlesCharacter ],
    start: function() {
       var store = this;
@@ -15,7 +15,10 @@ module.exports = Reflux.createStore({
               stamina: character.stamina,
               maxStamina: character.maxStamina
           };
+          console.log("ON CHARACTER " + JSON.stringify(store.info));
           store.trigger(store.info);
       });
    }
 });
+
+module.exports = CharacterStore;

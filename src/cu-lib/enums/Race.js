@@ -1,4 +1,5 @@
 module.exports = {
+    
     //Tuatha = 0,
     1: "Hamadryad",
     2: "Luchorpan",
@@ -17,7 +18,7 @@ module.exports = {
     12: "StormRider",
     13: "StormRiderT",
     14: "StormRiderV",
-    
+
     15: "HumanMaleV",
     16: "HumanMaleA",
     17: "HumanMaleT"
