@@ -1,13 +1,14 @@
 var cuAPI = require("../fake-API.js");
 var Race = require("../enums/Race.js");
 
-module.exports = function(handlers) {
-    this.handlers = handlers;
-    this.listening = false;
+module.exports = function(handlers, _super) {
+    this._super = _super;
+    _super.handlers = handlers;
+    _super.listening = false;
 };
 
 module.exports.prototype.listen = function(type) {
-    var target = this, handler = this.handlers[type.toLowerCase()];
+    var target = this._super, handler = target.handlers[type.toLowerCase()];
 
     // only actually start listening if someone has actually registered
     // a handler for these events.
@@ -15,10 +16,10 @@ module.exports.prototype.listen = function(type) {
 
         // Set initial state
         console.log(type + " LISTENER: Initialise State");
-        this.name = this.race = "";
-        this.raceID = -1;
-        this.health = this.stamina = 0;
-        this.maxHealth = this.maxStamina = 100;
+        target.name = target.race = "";
+        target.raceID = -1;
+        target.health = target.stamina = 0;
+        target.maxHealth = target.maxStamina = 100;
         handler.fire(target);
 
         // Target Name
@@ -62,6 +63,6 @@ module.exports.prototype.listen = function(type) {
         });
 
         // We are now listening
-        this.listening = true;
+        target.listening = true;
     }
 };

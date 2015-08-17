@@ -4,6 +4,7 @@ var Reflux = require("reflux");
 var InitListener = require('./listeners/Init.js');
 var CharacterListener = require('./listeners/Character.js');
 var EnemyTargetListener = require('./listeners/EnemyTarget.js');
+var FriendlyTargetListener = require('./listeners/FriendlyTarget.js');
 
 // Event Handlers
 var handlers = {};
@@ -13,7 +14,8 @@ var handlers = {};
 var listeners = {
     "init": new InitListener(handlers),
     "character": new CharacterListener(handlers),
-    "enemytarget": new EnemyTargetListener(handlers)
+    "enemytarget": new EnemyTargetListener(handlers),
+    "friendlytarget": new EnemyTargetListener(handlers)
 };
 
 // Event handler class
