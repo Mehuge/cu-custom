@@ -58,10 +58,10 @@ gulp.task('ui', [ 'clean' ], function() {
       .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('html',  [ 'clean' ], function() { 
+gulp.task('html',  [ 'clean' ], function() {
   return gulp.src('src/**/*.html')
       .pipe(watcher('src/**/*.html'))
-      .pipe(gulp.dest('./dist')); 
+      .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('images', ['clean'], function() {
@@ -70,7 +70,7 @@ gulp.task('images', ['clean'], function() {
           .pipe(gulp.dest('./dist'));
 });
 
-var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc", "character" ];
+var UIs = [ "mehuge-kills", "mehuge-helloworld", "mehuge-loc", "character", "enemytarget", "friendlytarget" ];
 var uiTasks = [];
 for (var i = 0; i < UIs.length; i++) {
   (function(UI) {
@@ -106,7 +106,7 @@ for (var i = 0; i < UIs.length; i++) {
     }
     gulp.task('js-'+UI, [ 'clean' ], buildJS);
     uiTasks.push('js-'+UI);
-  })(UIs[i]);  
+  })(UIs[i]);
 }
 
 gulp.task('build', [ 'style', 'css' ].concat(uiTasks).concat([ 'images', 'html', 'ui', 'clean' ]), function() {
