@@ -103,7 +103,7 @@ var CUFakeGameAPI = (function () {
                 else if (_player === cuAPI._target) {
                     _changeTarget(tick, _player);
                 }
-                else if (_player === cuAPI._target) {
+                else if (_player === cuAPI._friendly) {
                     _changeFriendlyTarget(tick, _player);
                 }
             }
