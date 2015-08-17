@@ -1,0 +1,9 @@
+<script>
+    cuAPI.OnInitialized(function() {
+        setTimeout(function() {
+            cuAPI.OnCharacterNameChanged(function(name){
+                alert(name);
+            });
+        },5);
+    });
+</script>

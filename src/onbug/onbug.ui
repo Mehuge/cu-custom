@@ -1,0 +1,11 @@
+{
+    "name": "onbug",
+    "mainFile": "onbug/index.html",
+    "rect": {
+        "left": 200,
+        "top": 200,
+        "right": 445,
+        "bottom": 325
+    },
+    "handlesCharacter": true
+}
