@@ -1,10 +1,10 @@
 var _TargetBase = require("./_TargetBase.js");
 
-var FriendlyTarget = function(handlers) {
+var Character = function(handlers) {
     this.target = new _TargetBase(handlers);
     FriendlyTarget.prototype.start = function() {
         this.target.listen("Character");
     };
 };
 
-module.exports = FriendlyTarget;
+module.exports = Character;
