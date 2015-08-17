@@ -10,8 +10,6 @@ var cuAPI = require('../../cu-lib/API.js');
 var CharacterStore = require("../../cu-lib/stores/Character.js");
 var UnitFrame = require("../../cu-lib/views/unitframe.js");
 
-console.log("!!!!!CHARACTER UI STARTING!!!!!");
-
 var Character = React.createClass({
 
 	// Hook store up to component.  Each time character data is changed,
@@ -22,14 +20,12 @@ var Character = React.createClass({
 
 	// Provide an initial state (TODO: is there a better way to do this?)
 	getInitialState: function() {
-		console.log("CHARACTER: Return INITIAL state");
 		return { character: CharacterStore.info };
 	},
 
 	// Render the unit frame using character data
 	render: function() {
 		var state = this.state, character = state.character;
-		console.log("CHARACTER STATE" + JSON.stringify(state));
 		return (<UnitFrame
 				className="character"
 				name={character.name} race={character.race}

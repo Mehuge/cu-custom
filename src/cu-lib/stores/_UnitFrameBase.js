@@ -16,14 +16,12 @@ var _UnitFrameBase = {
                 stamina: unitFrame.stamina,
                 maxStamina: unitFrame.maxStamina
             };
-            console.log("UNIT FRAME BASE [" + store.handles.listener + "] " + JSON.stringify(store.info));
             store.trigger(store.info);
         });
     },
     init: function() {
         var store = this;
         cuAPI.on("init", function() {
-            console.log("UNIT FRAME BASE [" + store.handles.listener + "] START");
             store.start();
         });
     }

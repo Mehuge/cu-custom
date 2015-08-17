@@ -10,8 +10,6 @@ var cuAPI = require('../../cu-lib/API.js');
 var FriendlyTargetStore = require("../../cu-lib/stores/FriendlyTarget.js");
 var UnitFrame = require("../../cu-lib/views/unitframe.js");
 
-console.log("!!!!!FRIENDLY TARGET UI STARTING!!!!!");
-
 var FriendlyTarget = React.createClass({
 
 	// Hook store up to component.  Each time FriendlyTarget data is changed,
@@ -22,14 +20,12 @@ var FriendlyTarget = React.createClass({
 
 	// Provide an initial state (TODO: is there a better way to do this?)
 	getInitialState: function() {
-		console.log("FRIENDLY TARGET: Return INITIAL state");
 		return { target: FriendlyTargetStore.info };
 	},
 
 	// Render the unit frame using target data
 	render: function() {
 		var state = this.state, target = state.target;
-		console.log("FRIENDLY TARGET STATE" + JSON.stringify(state));
 		return (<UnitFrame
 				className="friendly"
 				name={target.name} race={target.race}

@@ -30,14 +30,12 @@ var listeners = {
                 // functionality to the handler through its interface. Can't
                 // think of a use-case off hand though.
                 character.name = name;
-                console.log('character name ' + name);
                 handler.fire(character);
             });
 
             // Character Race
             cuAPI.OnCharacterRaceChanged(function(race) {
                 character.race = race;
-                console.log('character race ' + race);
                 handler.fire(character);
             });
 
@@ -45,7 +43,6 @@ var listeners = {
             cuAPI.OnCharacterStaminaChanged(function(stamina, maxStamina) {
                 character.stamina = stamina;
                 character.maxStamina = maxStamina;
-                console.log('character stamina ' + stamina + "/" + maxStamina);
                 handler.fire(character);
             });
 
@@ -53,7 +50,6 @@ var listeners = {
             cuAPI.OnCharacterHealthChanged(function(health, maxHealth) {
                 character.health = health;
                 character.maxHealth = maxHealth;
-                console.log('character health ' + health + "/" + maxHealth);
                 handler.fire(character);
             });
 
@@ -81,7 +77,6 @@ function Handler() {
     function fire(args) {
         for (var i = 0; i < handlers.length; i++) {
             if (handlers[i] && handlers[i].handler) {
-                console.log('fire handler args=' + (typeof args));
                 handlers[i].handler.call(handlers[i].context||handlers[i], args);
             }
         }

@@ -36,7 +36,6 @@ function Handler() {
     function fire(args) {
         for (var i = 0; i < handlers.length; i++) {
             if (handlers[i] && handlers[i].handler) {
-                console.log('fire handler args=' + (typeof args));
                 handlers[i].handler.call(handlers[i].context||handlers[i], args);
             }
         }

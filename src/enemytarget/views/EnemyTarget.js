@@ -10,8 +10,6 @@ var cuAPI = require('../../cu-lib/API.js');
 var EnemyTargetStore = require("../../cu-lib/stores/EnemyTarget.js");
 var UnitFrame = require("../../cu-lib/views/unitframe.js");
 
-console.log("!!!!!ENEMY TARGET UI STARTING!!!!!");
-
 var EnemyTarget = React.createClass({
 
 	// Hook store up to component.  Each time character data is changed,
@@ -22,7 +20,6 @@ var EnemyTarget = React.createClass({
 
 	// Provide an initial state (TODO: is there a better way to do this?)
 	getInitialState: function() {
-		console.log("ENEMY TARGET: Return INITIAL state");
 		return {
 			target: {
 				name: "", race: "",
@@ -35,7 +32,6 @@ var EnemyTarget = React.createClass({
 	// Render the unit frame using character data
 	render: function() {
 		var state = this.state, target = state.target;
-		console.log("ENEMY TARGET STATE" + JSON.stringify(state));
 		return (<UnitFrame
 				className="enemy"
 				name={target.name} race={target.race}
