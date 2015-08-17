@@ -1,8 +1,9 @@
 // Gives us the REAL or a FAKE API if the real one does not exist.
 var cuAPI = require("./fake-API.js");
 var Reflux = require("reflux");
-var InitListener = require('./listeners/init.js');
-var CharacterListener = require('./listeners/character.js');
+var InitListener = require('./listeners/Init.js');
+var CharacterListener = require('./listeners/Character.js');
+var EnemyTargetListener = require('./listeners/EnemyTarget.js');
 
 // Event Handlers
 var handlers = {};
@@ -11,7 +12,8 @@ var handlers = {};
 // for a particular topic, e.g. "character" for handlesCharacter events.
 var listeners = {
     "init": new InitListener(handlers),
-    "character": new CharacterListener(handlers)
+    "character": new CharacterListener(handlers),
+    "enemytarget": new EnemyTargetListener(handlers)
 };
 
 // Event handler class
@@ -57,7 +59,10 @@ function Handler() {
 module.exports = {
     native: cuAPI,
 
-    HandlesCharacter: Reflux.createActions([ 'start' ]),
+    // Listeners
+    HandlesCharacter: { listener: "character" },
+    HandlesEnemyTarget: { listener: "enemytarget" },
+    HandlesFriendlyTarget: { listener: "friendlytarget" },
 
     on: function(handles, callback) {
         var id;

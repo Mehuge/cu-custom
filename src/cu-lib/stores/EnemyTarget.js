@@ -2,9 +2,9 @@ var Reflux = require('reflux');
 var cuAPI = require('../API.js');
 var _UnitFrameBase = require('./_UnitFrameBase.js');
 
-var CharacterStore = Reflux.createStore({
+var EnemyTargetStore = Reflux.createStore({
     mixins: [ _UnitFrameBase ],
-    handles: cuAPI.HandlesCharacter
+    handles: cuAPI.HandlesEnemyTarget
 });
 
-module.exports = CharacterStore;
+module.exports = EnemyTargetStore;

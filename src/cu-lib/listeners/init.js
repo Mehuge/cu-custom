@@ -11,6 +11,7 @@ module.exports.prototype.start = function() {
     // a handler for these events.
     if (handler) {
         cuAPI.OnInitialized(function(){
+            console.log("CUAPI HAS INITIALISED");
             handler.fire();
         });
         this.listening = true;

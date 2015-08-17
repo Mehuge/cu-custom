@@ -8,6 +8,8 @@ var CharacterUnitFrame = require("./views/character.js");
 
 // Render when cuAPI is ready.
 cuAPI.on("init", function(){
+	console.log("START LISTENING");
+	// cuAPI.HandlesCharacter.listenable.start();
 	cuAPI.OpenUI("mehuge-chat.ui");
 	React.render(
 		<CharacterUnitFrame/>,

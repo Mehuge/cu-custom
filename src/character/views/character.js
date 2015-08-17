@@ -33,13 +33,6 @@ var Character = React.createClass({
 		};
 	},
 
-	// When the component is displayed, tell the cuAPI it should start monitoring
-	// character events.
-	componentDidMount: function() {
-		console.log("START LISTENING");
-		cuAPI.HandlesCharacter.start();
-	},
-
 	// Render the unit frame using character data
 	render: function() {
 		var state = this.state, character = state.character;
