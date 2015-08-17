@@ -13,11 +13,15 @@ module.exports.prototype.listen = function(type) {
     // only actually start listening if someone has actually registered
     // a handler for these events.
     if (handler) {
+        var hasRace = "On"+type+"RaceChanged" in cuAPI;
 
         // Set initial state
         console.log(type + " LISTENER: Initialise State");
-        target.name = target.race = "";
-        target.raceID = -1;
+        target.name = "";
+        if (hasRace) {
+            target.race = "";
+            target.raceID = -1;
+        }
         target.health = target.stamina = 0;
         target.maxHealth = target.maxStamina = 100;
         handler.fire(target);
@@ -30,19 +34,21 @@ module.exports.prototype.listen = function(type) {
             handler.fire(target);
         });
 
-        // Target Race
-        console.log(type + ' LISTENER: Listen for RACE change');
-        cuAPI["On"+type+"RaceChanged"](function(race) {
-            console.log('target race ' + race);
-            if (race === -1) {
-                target.race = "";
-                target.raceID = -1;
-            } else {
-                target.race = Race[race].toLowerCase();
-                target.raceID = race;
-            }
-            handler.fire(target);
-        });
+        // Target Race (only Character has this atm)
+        if (hasRace) {
+            console.log(type + ' LISTENER: Listen for RACE change');
+            cuAPI["On"+type+"RaceChanged"](function(race) {
+                console.log('target race ' + race);
+                if (race === -1) {
+                    target.race = "";
+                    target.raceID = -1;
+                } else {
+                    target.race = Race[race].toLowerCase();
+                    target.raceID = race;
+                }
+                handler.fire(target);
+            });
+        }
 
         // Target Stamina
         console.log(type + ' LISTENER: Listen for STAMINA change');

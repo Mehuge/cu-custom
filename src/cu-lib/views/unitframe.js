@@ -25,9 +25,16 @@ var UnitFrame = React.createClass({
     render: function() {
         var healthWidth = this.props.maxHealth ? (this.props.health / this.props.maxHealth) * this.state.healthWidth : 0;
         var staminaWidth = this.props.maxStamina ? (this.props.stamina / this.props.maxStamina) * this.state.staminaWidth : 0;
+        var portrait, visible;
+        if (this.props.race) {
+            portrait = (<Portrait race={this.props.race}/>);
+        }
+        if (this.props.name.length > 0) {
+            visible = { visibility: 'visible' };
+        }
         return (
-            <div>
-                <Portrait race={this.props.race}/>
+            <div id="unitframe" className={this.props.className} style={visible}>
+                {portrait}
                 <Name name={this.props.name}/>
                 <HealthBar width={healthWidth} />
                 <HealthText ref="healthText" health={this.props.health} maxHealth={this.props.maxHealth} />

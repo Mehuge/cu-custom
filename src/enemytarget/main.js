@@ -4,15 +4,12 @@ var React = require("react");
 var cuAPI = require("../cu-lib/API.js");
 
 // And we are building a character Unit Frame
-var CharacterUnitFrame = require("./views/character.js");
+var EnemyTargetUnitFrame = require("./views/EnemyTarget.js");
 
 // Render when cuAPI is ready.
 cuAPI.on("init", function(){
-	setTimeout(function() {
-		// cuAPI.OpenUI("mehuge-chat.ui");
-	},1000);
 	React.render(
-		<CharacterUnitFrame/>,
+		<EnemyTargetUnitFrame/>,
 		document.getElementById("main")
 	);
 });
