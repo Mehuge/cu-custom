@@ -6,8 +6,6 @@ var cuAPI = require("../cu-lib/API.js");
 // And we are building a character Unit Frame
 var FriendlyTargetUnitFrame = require("./views/FriendlyTarget.js");
 
-alert('hello');
-
 // Render when cuAPI is ready.
 cuAPI.on("init", function(){
 	React.render(

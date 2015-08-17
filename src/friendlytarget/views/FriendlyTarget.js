@@ -31,7 +31,7 @@ var FriendlyTarget = React.createClass({
 		var state = this.state, target = state.target;
 		console.log("FRIENDLY TARGET STATE" + JSON.stringify(state));
 		return (<UnitFrame
-				className="enemy"
+				className="friendly"
 				name={target.name} race={target.race}
 				health={target.health} maxHealth={target.maxHealth}
 				stamina={target.stamina} maxStamina={target.maxStamina} />

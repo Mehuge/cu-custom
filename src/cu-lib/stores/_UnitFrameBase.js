@@ -4,6 +4,9 @@ var cuAPI = require('../API.js');
 var _UnitFrameBase = {
     start: function() {
         var store = this;
+        store.info = {
+            name: "", race: "", raceID: -1, health: 0, maxHealth: 100, stamina: 0, maxStamina: 100
+        };
         cuAPI.on(this.handles.listener, function(unitFrame) {
             store.info = {
                 name: unitFrame.name,

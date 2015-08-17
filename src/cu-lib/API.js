@@ -15,7 +15,7 @@ var listeners = {
     "init": new InitListener(handlers),
     "character": new CharacterListener(handlers),
     "enemytarget": new EnemyTargetListener(handlers),
-    "friendlytarget": new EnemyTargetListener(handlers)
+    "friendlytarget": new FriendlyTargetListener(handlers)
 };
 
 // Event handler class

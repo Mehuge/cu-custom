@@ -1,11 +1,11 @@
 {
-    "name": "enemytarget",
-    "mainFile": "enemytarget/index.html",
+    "name": "friendlytarget",
+    "mainFile": "friendlytarget/index.html",
     "rect": {
-        "left": 300,
-        "top": 9,
-        "right": 478,
-        "bottom": 168
+        "left": 20,
+        "top": 150,
+        "right": 198,
+        "bottom": 289
     },
-    "handlesEnemyTarget": true
+    "handlesFriendlyTarget": true
 }
