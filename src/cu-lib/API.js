@@ -61,9 +61,9 @@ module.exports = {
     native: cuAPI,
 
     // Listeners
-    HandlesCharacter: { listener: "character" },
-    HandlesEnemyTarget: { listener: "enemytarget" },
-    HandlesFriendlyTarget: { listener: "friendlytarget" },
+    handlesCharacter: { listener: "character" },
+    handlesEnemyTarget: { listener: "enemytarget" },
+    handlesFriendlyTarget: { listener: "friendlytarget" },
 
     on: function(handles, callback) {
         var id;

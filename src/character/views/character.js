@@ -1,7 +1,7 @@
 var React = require("react");
 var Reflux = require("reflux");
 
-// Required for cuAPI.HandlesCharacter
+// Required for cuAPI.handlesCharacter
 var cuAPI = require('../../cu-lib/API.js');
 
 // The Character UI component pulls together the CharacterStore which

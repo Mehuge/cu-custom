@@ -1,7 +1,7 @@
 var React = require("react");
 var Reflux = require("reflux");
 
-// Required for cuAPI.HandlesFriendlyTarget
+// Required for cuAPI.handlesFriendlyTarget
 var cuAPI = require('../../cu-lib/API.js');
 
 // The FriendlyTarget UI component pulls together the FriendlyTargetStore which

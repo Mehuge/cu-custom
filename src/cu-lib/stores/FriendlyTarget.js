@@ -4,7 +4,7 @@ var _UnitFrameBase = require('./_UnitFrameBase.js');
 
 var FriendlyTargetStore = Reflux.createStore({
     mixins: [ _UnitFrameBase ],
-    handles: cuAPI.HandlesFriendlyTarget
+    handles: cuAPI.handlesFriendlyTarget
 });
 
 module.exports = FriendlyTargetStore;

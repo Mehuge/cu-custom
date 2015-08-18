@@ -4,7 +4,7 @@ var _UnitFrameBase = require('./_UnitFrameBase.js');
 
 var EnemyTargetStore = Reflux.createStore({
     mixins: [ _UnitFrameBase ],
-    handles: cuAPI.HandlesEnemyTarget
+    handles: cuAPI.handlesEnemyTarget
 });
 
 module.exports = EnemyTargetStore;

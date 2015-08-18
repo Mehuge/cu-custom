@@ -4,7 +4,7 @@ var _UnitFrameBase = require('./_UnitFrameBase.js');
 
 var CharacterStore = Reflux.createStore({
     mixins: [ _UnitFrameBase ],
-    handles: cuAPI.HandlesCharacter
+    handles: cuAPI.handlesCharacter
 });
 
 module.exports = CharacterStore;

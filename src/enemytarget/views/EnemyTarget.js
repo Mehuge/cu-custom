@@ -1,7 +1,7 @@
 var React = require("react");
 var Reflux = require("reflux");
 
-// Required for cuAPI.HandlesEnemyTarget
+// Required for cuAPI.handlesEnemyTarget
 var cuAPI = require('../../cu-lib/API.js');
 
 // The EnemyTarget UI component pulls together the EnemyTargetStore which
