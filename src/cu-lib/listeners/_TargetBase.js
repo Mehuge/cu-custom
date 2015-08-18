@@ -19,7 +19,7 @@ module.exports.prototype.listen = function(type) {
         target.name = "";
         if (hasRace) {
             target.race = "";
-            target.raceID = -1;
+            target.raceId = -1;
         }
         target.health = target.stamina = 0;
         target.maxHealth = target.maxStamina = 100;
@@ -36,10 +36,10 @@ module.exports.prototype.listen = function(type) {
             cuAPI["On"+type+"RaceChanged"](function(race) {
                 if (race === -1) {
                     target.race = "";
-                    target.raceID = -1;
+                    target.raceId = -1;
                 } else {
                     target.race = Race[race].toLowerCase();
-                    target.raceID = race;
+                    target.raceId = race;
                 }
                 handler.fire(target);
             });
